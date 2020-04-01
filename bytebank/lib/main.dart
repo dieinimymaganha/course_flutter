@@ -14,6 +14,9 @@ class ByteBankApp extends StatelessWidget {
 }
 
 class FormularioTransferencia extends StatelessWidget {
+  final TextEditingController _controladorCampoConta = TextEditingController();
+  final TextEditingController _controladorCampoValor = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +28,7 @@ class FormularioTransferencia extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
+                controller: _controladorCampoConta,
                 style: TextStyle(fontSize: 24.0),
                 decoration: InputDecoration(
                   labelText: 'Numero da conta',
@@ -36,6 +40,7 @@ class FormularioTransferencia extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
+                controller: _controladorCampoValor,
                 style: TextStyle(fontSize: 24.0),
                 decoration: InputDecoration(
                   icon: Icon(Icons.monetization_on),
@@ -47,6 +52,19 @@ class FormularioTransferencia extends StatelessWidget {
             ),
             RaisedButton(
               child: Text('Confirmar'),
+              onPressed: () {
+                debugPrint('Teste');
+                final int numeroConta =
+                    int.tryParse(_controladorCampoConta.text);
+                final double valor =
+                    double.tryParse(_controladorCampoValor.text);
+
+                if (numeroConta != null && valor != null) {
+                  final transferenciacCriada =
+                      Transferencia(valor, numeroConta);
+                  debugPrint('$transferenciacCriada');
+                }
+              },
             ),
           ],
         ));
@@ -96,4 +114,9 @@ class Transferencia {
   final int numeroConta;
 
   Transferencia(this.valor, this.numeroConta);
+
+  @override
+  String toString() {
+    return 'Transferencia{valor: $valor, numeroConta: $numeroConta}';
+  }
 }
