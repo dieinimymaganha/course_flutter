@@ -26,48 +26,55 @@ class FormularioTransferencia extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
-            Editor(_controladorCampoNumeroConta, 'Numero da conta', '0000', null),
-        Editor(_controladorCampoValor, 'Valor', '0.00', Icons.monetization_on),
+            Editor(
+              controlador: _controladorCampoValor,
+              dica: '0000',
+              rotulo: 'Número da conta',
+            ),
+            Editor(
+              controlador: _controladorCampoNumeroConta,
+              dica: '0.00',
+              rotulo: 'Valor',
+              icone: Icons.monetization_on,
+            ),
             RaisedButton(
               child: Text('Confirmar'),
-              onPressed: () {
-                debugPrint('Teste');
-                final int numeroConta =
-                    int.tryParse(_controladorCampoNumeroConta.text);
-                final double valor =
-                    double.tryParse(_controladorCampoValor.text);
-
-                if (numeroConta != null && valor != null) {
-                  final transferenciacCriada =
-                      Transferencia(valor, numeroConta);
-                  debugPrint('$transferenciacCriada');
-                }
-              },
+              onPressed: () => _criaTransferencia(),
             ),
           ],
         ));
   }
+
+  void _criaTransferencia() {
+    final int numeroConta = int.tryParse(_controladorCampoNumeroConta.text);
+    final double valor = double.tryParse(_controladorCampoValor.text);
+
+    if (numeroConta != null && valor != null) {
+      final transferenciacCriada = Transferencia(valor, numeroConta);
+      debugPrint('$transferenciacCriada');
+    }
+  }
 }
 
 class Editor extends StatelessWidget {
-  final TextEditingController _controlador;
-  final String _rotulo;
-  final String _dica;
-  final IconData _icone;
+  final TextEditingController controlador;
+  final String rotulo;
+  final String dica;
+  final IconData icone;
 
-  Editor(this._controlador, this._rotulo, this._dica, this._icone);
+  Editor({this.controlador, this.rotulo, this.dica, this.icone});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: TextField(
-        controller: _controlador,
+        controller: controlador,
         style: TextStyle(fontSize: 24.0),
         decoration: InputDecoration(
-          icon: Icon(_icone),
-          labelText: _rotulo,
-          hintText: _dica,
+          icon: icone != null ? Icon(icone) : null,
+          labelText: rotulo,
+          hintText: dica,
         ),
         keyboardType: TextInputType.number,
       ),
