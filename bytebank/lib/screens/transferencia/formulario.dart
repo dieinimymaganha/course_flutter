@@ -2,6 +2,14 @@ import 'package:bytebank/components/editor.dart';
 import 'package:bytebank/models/transferencia.dart';
 import 'package:flutter/material.dart';
 
+
+const _tituloAppBar = 'Criando Transferência';
+const _rotuloCampoValor = 'Valor';
+const _dicaCampoValor = '0.00';
+const _rotuloCampoNumero = 'Número da conta';
+const _dicaCampoNumero = '0000';
+const _textoBotaoConfirmar = 'Confirmar';
+
 class FormularioTransferencia extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -19,24 +27,24 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Criando Transferência"),
+          title: Text(_tituloAppBar),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Editor(
                 controlador: _controladorCampoNumeroConta,
-                dica: '0000',
-                rotulo: 'Número da conta',
+                dica: _dicaCampoValor,
+                rotulo: _rotuloCampoNumero,
               ),
               Editor(
                 controlador: _controladorCampoValor,
-                dica: '0.00',
-                rotulo: 'Valor',
+                dica: _dicaCampoValor,
+                rotulo: _rotuloCampoValor,
                 icone: Icons.monetization_on,
               ),
               RaisedButton(
-                child: Text('Confirmar'),
+                child: Text(_textoBotaoConfirmar),
                 onPressed: () => _criaTransferencia(context),
               ),
             ],
@@ -50,8 +58,6 @@ class FormularioTransferenciaState extends State<FormularioTransferencia> {
 
     if (numeroConta != null && valor != null) {
       final transferenciacCriada = Transferencia(valor, numeroConta);
-      debugPrint('Criando transferencia');
-      debugPrint('$transferenciacCriada');
       Navigator.pop(context, transferenciacCriada);
     }
   }
