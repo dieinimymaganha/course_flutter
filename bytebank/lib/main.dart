@@ -27,12 +27,12 @@ class FormularioTransferencia extends StatelessWidget {
         body: Column(
           children: <Widget>[
             Editor(
-              controlador: _controladorCampoValor,
+              controlador: _controladorCampoNumeroConta,
               dica: '0000',
               rotulo: 'Número da conta',
             ),
             Editor(
-              controlador: _controladorCampoNumeroConta,
+              controlador: _controladorCampoValor,
               dica: '0.00',
               rotulo: 'Valor',
               icone: Icons.monetization_on,
@@ -84,8 +84,20 @@ class Editor extends StatelessWidget {
   }
 }
 
-class ListaTransferencias extends StatelessWidget {
+class ListaTransferencias extends StatefulWidget {
   final List<Transferencia> _transferencias = List();
+
+
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return ListaTransferenciaState();
+  }
+}
+
+class ListaTransferenciaState extends State<ListaTransferencias>{
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,9 +105,9 @@ class ListaTransferencias extends StatelessWidget {
         title: Text("Transferências"),
       ),
       body: ListView.builder(
-        itemCount: _transferencias.length,
+        itemCount: widget._transferencias.length,
         itemBuilder: (context, indece) {
-          final transferencia = _transferencias[indece];
+          final transferencia = widget._transferencias[indece];
           return ItemTransferencia(transferencia);
         },
 
@@ -104,19 +116,21 @@ class ListaTransferencias extends StatelessWidget {
         child: Icon(Icons.add),
         onPressed: () {
           final Future<Transferencia> future =
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
             return FormularioTransferencia();
           }));
           future.then((transferenciaRecebida) {
             debugPrint('chegou no then do future');
             debugPrint('$transferenciaRecebida');
-            _transferencias.add(transferenciaRecebida);
+            widget._transferencias.add(transferenciaRecebida);
           });
         },
       ),
     );
   }
+
 }
+
 
 class ItemTransferencia extends StatelessWidget {
   final Transferencia _transferencia;
