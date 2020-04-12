@@ -1,4 +1,4 @@
-import 'package:bytebank_persistence/screens/contacts_list.dart';
+import 'package:bytebank/screens/contacts_list.dart';
 import 'package:flutter/material.dart';
 
 class Dashboard extends StatelessWidget {

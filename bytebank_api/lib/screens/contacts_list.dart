@@ -1,16 +1,17 @@
-import 'package:bytebank_persistence/dao/contact_dao.dart';
-import 'package:bytebank_persistence/models/contact.dart';
-import 'package:bytebank_persistence/screens/contact_form.dart';
+import 'package:bytebank/database/dao/contact_dao.dart';
+import 'package:bytebank/models/contact.dart';
+import 'package:bytebank/screens/contact_form.dart';
 import 'package:flutter/material.dart';
 
 class ContactsList extends StatelessWidget {
+
   final ContactDao _dao = ContactDao();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contacts'),
+        title: Text('Transfer'),
       ),
       body: FutureBuilder<List<Contact>>(
         initialData: List(),

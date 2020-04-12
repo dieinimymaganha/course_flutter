@@ -1,6 +1,5 @@
+import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/dashboard.dart';
 
 void main() {
   runApp(BytebankApp());
@@ -23,5 +22,3 @@ class BytebankApp extends StatelessWidget {
     );
   }
 }
-
-

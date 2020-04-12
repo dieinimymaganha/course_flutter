@@ -1,4 +1,4 @@
-import 'package:bytebank_persistence/dao/contact_dao.dart';
+import 'package:bytebank/database/dao/contact_dao.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -12,3 +12,4 @@ Future<Database> getDatabase() async {
     version: 1,
   );
 }
+
