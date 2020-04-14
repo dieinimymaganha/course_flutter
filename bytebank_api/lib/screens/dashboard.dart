@@ -16,11 +16,29 @@ class Dashboard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Image.asset('images/bytebank_logo.png'),
           ),
-          Row(
-            children: <Widget>[
-              _FeatureItem('Transfer', Icons.monetization_on),
-              _FeatureItem('Transaction Feed', Icons.description),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: <Widget>[
+                _FeatureItem(
+                  'Transfer',
+                  Icons.monetization_on,
+                  onClick: () {
+                    _showContactsList(context);
+                  },
+                ),
+                _FeatureItem(
+                  'Transaction Feed',
+                  Icons.description,
+                  onClick: () => print('Transction feed was clikec'),
+                ),
+                _FeatureItem(
+                  'Transaction Feed',
+                  Icons.description,
+                  onClick: () => print('Transction feed was clikec'),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -28,13 +46,12 @@ class Dashboard extends StatelessWidget {
   }
 }
 
-
 class _FeatureItem extends StatelessWidget {
-
   final String name;
   final IconData icon;
+  final Function onClick;
 
-  _FeatureItem(this.name, this.icon);
+  _FeatureItem(this.name, this.icon, {@required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +61,7 @@ class _FeatureItem extends StatelessWidget {
         color: Theme.of(context).primaryColor,
         child: InkWell(
           onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => ContactsList(),
-              ),
-            );
+            onClick();
           },
           child: Container(
             padding: EdgeInsets.all(8.0),
@@ -77,4 +90,12 @@ class _FeatureItem extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showContactsList(BuildContext context) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (context) => ContactsList(),
+    ),
+  );
 }
