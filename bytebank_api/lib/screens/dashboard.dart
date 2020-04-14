@@ -16,9 +16,10 @@ class Dashboard extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Image.asset('images/bytebank_logo.png'),
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
+          Container(
+            height: 120,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
               children: <Widget>[
                 _FeatureItem(
                   'Transfer',
@@ -65,7 +66,6 @@ class _FeatureItem extends StatelessWidget {
           },
           child: Container(
             padding: EdgeInsets.all(8.0),
-            height: 100,
             width: 150,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
