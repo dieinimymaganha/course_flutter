@@ -89,24 +89,27 @@ class _TransactionFormState extends State<TransactionForm> {
 
   void _save(Transaction transactionCreated, String password,
       BuildContext context) async {
-    _webClient.save(transactionCreated, password).then((transaction) {
-      if (transaction != null) {
-        showDialog(
-            context: context,
-            builder: (contextDialog) {
-              return SuccessDialog('sucessful transaction');
-            }).then((value) => Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) => ContactsList(),
-            ),
-            ModalRoute.withName("/")));
-      }
-    }).catchError((e) {
+    final Transaction transaction =
+        await _webClient.save(transactionCreated, password).catchError((e) {
       showDialog(
           context: context,
           builder: (contextDialog) {
             return FailureDialog(e.message);
           });
     }, test: (e) => e is Exception);
+
+    if (transaction != null) {
+      await showDialog(
+          context: context,
+          builder: (contextDialog) {
+            return SuccessDialog('sucessful transaction');
+          });
+
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => ContactsList(),
+          ),
+          ModalRoute.withName("/"));
+    }
   }
 }
