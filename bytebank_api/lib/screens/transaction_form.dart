@@ -60,24 +60,22 @@ class _TransactionFormState extends State<TransactionForm> {
                 child: SizedBox(
                   width: double.maxFinite,
                   child: RaisedButton(
-                    child: Text('Transfer'), onPressed: () {
-                    final double value = double.tryParse(_valueController.text);
-                    final transactionCreated = Transaction(value, widget.contact);
-                    showDialog(context: context, builder: (context) {
-                      return TransactionAuthDialog(onConfirm: (String password) {
-                        _webClient.save(transactionCreated, password).then((transaction) {
-                          if(transaction != null){
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                  builder: (context) => ContactsList(),
-                                ),
-                                ModalRoute.withName("/")
+                    child: Text('Transfer'),
+                    onPressed: () {
+                      final double value =
+                          double.tryParse(_valueController.text);
+                      final transactionCreated =
+                          Transaction(value, widget.contact);
+                      showDialog(
+                          context: context,
+                          builder: (contextDialog) {
+                            return TransactionAuthDialog(
+                              onConfirm: (String password) {
+                                _save(transactionCreated, password, context);
+                              },
                             );
-                          }
-                        });
-                      },);
-                    });
-                  },
+                          });
+                    },
                   ),
                 ),
               )
@@ -86,5 +84,18 @@ class _TransactionFormState extends State<TransactionForm> {
         ),
       ),
     );
+  }
+
+  void _save(Transaction transactionCreated, String password,
+      BuildContext context) async {
+    _webClient.save(transactionCreated, password).then((transaction) {
+      if (transaction != null) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => ContactsList(),
+            ),
+            ModalRoute.withName("/"));
+      }
+    });
   }
 }
