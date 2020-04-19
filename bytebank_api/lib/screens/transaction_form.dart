@@ -96,15 +96,16 @@ class _TransactionFormState extends State<TransactionForm> {
       showDialog(
           context: context,
           builder: (contextDialog) {
-            return FailureDialog('timeout submitting the transaction');
-          });
-    }, test: (e) => e is TimeoutException).catchError((e) {
-      showDialog(
-          context: context,
-          builder: (contextDialog) {
             return FailureDialog(e.message);
           });
-    }, test: (e) => e is HttpException);
+    }, test: (e) => e is HttpException)
+    .catchError((e){
+          showDialog(
+              context: context,
+              builder: (contextDialog) {
+                return FailureDialog('timeout submitting the transaction');
+              });
+        }, test: (e) => e is TimeoutException);
 
     if (transaction != null) {
       await showDialog(
