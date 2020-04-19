@@ -89,7 +89,7 @@ class _ContactItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: ListTile(
-        onTap: () => onClick,
+        onTap: () => onClick(),
         title: Text(
           contact.name,
           style: TextStyle(
