@@ -32,14 +32,7 @@ class Dashboard extends StatelessWidget {
                 _FeatureItem(
                   'Transaction Feed',
                   Icons.description,
-                  onClick: () {
-                    _showTransctionssList(context);
-                  },
-                ),
-                _FeatureItem(
-                  'Transaction Feed',
-                  Icons.description,
-                  onClick: () => print('Transction feed was clikec'),
+                  onClick: () => _showTransctionssList(context),
                 ),
               ],
             ),
