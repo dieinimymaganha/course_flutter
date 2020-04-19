@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:bytebank/http/webclient.dart';
-import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/models/transaction.dart';
 import 'package:http/http.dart';
 
@@ -15,12 +14,11 @@ class TransactionWebClient {
         .toList();
   }
 
-  Future<Transaction> save(Transaction transaction) async {
+  Future<Transaction> save(Transaction transaction, String password) async {
     final String transactionJson = jsonEncode(transaction.toJson());
     final Response response = await client.post(baseUrl,
-        headers: {'Content-type': 'application/json', 'password': '1000'},
+        headers: {'Content-type': 'application/json', 'password': password},
         body: transactionJson);
     return Transaction.fromJson(jsonDecode(response.body));
-    ;
   }
 }
