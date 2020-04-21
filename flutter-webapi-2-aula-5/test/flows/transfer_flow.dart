@@ -12,12 +12,14 @@ import 'actions.dart';
 void main() {
   testWidgets('Should transfer to a contact', (tester) async {
     final mockContactDao = MockContactDao();
+    final mockTransactionWebClient = MockTransactionWebClient();
+
     await tester.pumpWidget(BytebankApp(
+      transactionWebClient: mockTransactionWebClient,
       contactDao: mockContactDao,
     ));
     final dashboard = find.byType(Dashboard);
     expect(dashboard, findsOneWidget);
-
 
     when(mockContactDao.findAll()).thenAnswer((invocation) async {
       debugPrint('name invocation ${invocation.memberName}');
@@ -46,6 +48,5 @@ void main() {
 
     final transactionForm = find.byType(TransactionForm);
     expect(transactionForm, findsOneWidget);
-
   });
 }
