@@ -9,6 +9,7 @@ void main() {
     final mainImage = find.byType(Image);
     expect(mainImage, findsOneWidget);
   });
+
   testWidgets('Should display the first feature when the Dashboard is opened',
       (tester) async {
     await tester.pumpWidget(MaterialApp(home: Dashboard()));
