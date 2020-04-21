@@ -1,4 +1,5 @@
 import 'package:bytebank/database/dao/contact_dao.dart';
+import 'package:bytebank/http/webclients/transaction_webclient.dart';
 import 'package:bytebank/screens/dashboard.dart';
 import 'package:bytebank/widgtes/app_dependences.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +13,18 @@ void main() {
 
 class BytebankApp extends StatelessWidget {
   final ContactDao contactDao;
+  final TransactionWebClient transactionWebClient;
 
-  BytebankApp({@required this.contactDao});
+  BytebankApp({
+    @required this.contactDao,
+    @required this.transactionWebClient,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Appdependencies(
       contactDao: contactDao,
+      transactionWebClient: transactionWebClient,
       child: MaterialApp(
         theme: ThemeData(
           primaryColor: Colors.green[900],
