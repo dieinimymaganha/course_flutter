@@ -31,4 +31,26 @@ void main() {
       findsOneWidget,
     );
   });
+
+  testWidgets(
+      'Should display the transaction feed feature when the Dashboard is opened',
+      (tester) async {
+    await tester.pumpWidget(MaterialApp(home: Dashboard()));
+    final iconTransactionFeedFeatureItem = find.widgetWithIcon(
+      FeatureItem,
+      Icons.description,
+    );
+    expect(
+      iconTransactionFeedFeatureItem,
+      findsOneWidget,
+    );
+    final nameTransactionFeedFeatureItem = find.widgetWithText(
+      FeatureItem,
+      'Transaction Feed',
+    );
+    expect(
+      nameTransactionFeedFeatureItem,
+      findsOneWidget,
+    );
+  });
 }
